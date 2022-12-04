@@ -43,12 +43,12 @@ func main() {
 		})
 	})
 
-	grpcClient, err := clients.NewGrpcClients(cfg)
+	grpcClients, err := clients.NewGrpcClients(cfg)
 	if err != nil {
 		panic(err)
 	}
-
-	h := handlars.NewHandler(cfg, grpcClient)
+	//
+	h := handlars.NewHandler(cfg, grpcClients)
 	// Gruppirovka qilindi
 	v1 := r.Group("v2")
 	{
