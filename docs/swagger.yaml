@@ -1,0 +1,501 @@
+definitions:
+  models.Article:
+    properties:
+      author_id:
+        type: string
+      body:
+        type: string
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      id:
+        type: string
+      title:
+        type: string
+      updated_at:
+        type: string
+    required:
+    - author_id
+    - body
+    - title
+    type: object
+  models.Author:
+    properties:
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      firstname:
+        example: John--example
+        maxLength: 50
+        minLength: 4
+        type: string
+      fullname:
+        type: string
+      id:
+        type: string
+      lastname:
+        example: Does--example
+        maxLength: 50
+        minLength: 4
+        type: string
+      middlename:
+        example: Stive
+        type: string
+      updated_at:
+        type: string
+    required:
+    - firstname
+    - lastname
+    type: object
+  models.CreateArticleModul:
+    properties:
+      author_id:
+        type: string
+      body:
+        type: string
+      title:
+        type: string
+    required:
+    - author_id
+    - body
+    - title
+    type: object
+  models.CreateAuthorModul:
+    properties:
+      firstname:
+        example: John
+        maxLength: 50
+        minLength: 4
+        type: string
+      lastname:
+        example: Does
+        maxLength: 50
+        minLength: 4
+        type: string
+      middlename:
+        example: Stive
+        type: string
+    required:
+    - firstname
+    - lastname
+    type: object
+  models.JSONErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  models.JSONResult:
+    properties:
+      data: {}
+      message:
+        type: string
+    type: object
+  models.PackedArticleModel:
+    properties:
+      author_id:
+        $ref: '#/definitions/models.Author'
+      body:
+        type: string
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      id:
+        type: string
+      title:
+        type: string
+      updated_at:
+        type: string
+    required:
+    - author_id
+    - body
+    - id
+    - title
+    type: object
+  models.PackedAuthorModel:
+    properties:
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      firstname:
+        example: John
+        maxLength: 50
+        minLength: 4
+        type: string
+      fullname:
+        type: string
+      id:
+        type: string
+      lastname:
+        example: Does
+        maxLength: 50
+        minLength: 4
+        type: string
+      middlename:
+        example: Stive
+        type: string
+      updated_at:
+        type: string
+    required:
+    - firstname
+    - lastname
+    type: object
+  models.UpdateArticleModul:
+    properties:
+      body:
+        type: string
+      id:
+        type: string
+      title:
+        type: string
+    required:
+    - body
+    - id
+    - title
+    type: object
+  models.UpdateAuthorModul:
+    properties:
+      firstname:
+        example: John
+        maxLength: 50
+        minLength: 4
+        type: string
+      id:
+        type: string
+      lastname:
+        example: Does
+        maxLength: 50
+        minLength: 4
+        type: string
+      middlename:
+        example: Stive
+        type: string
+    required:
+    - firstname
+    - id
+    - lastname
+    type: object
+info:
+  contact: {}
+  license:
+    name: Apache 2.0
+paths:
+  /v2/article:
+    post:
+      consumes:
+      - application/json
+      description: Creat a new article
+      parameters:
+      - description: Article body
+        in: body
+        name: article
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateArticleModul'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Article'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.JSONErrorResponse'
+      summary: Creat Article
+      tags:
+      - article
+  /v2/article/:
+    get:
+      consumes:
+      - application/json
+      description: GetArticleList
+      parameters:
+      - description: "0"
+        in: query
+        name: offset
+        type: integer
+      - description: "100"
+        in: query
+        name: limit
+        type: integer
+      - default: A
+        description: s
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Article'
+                  type: array
+              type: object
+      summary: List articles
+      tags:
+      - article
+    put:
+      consumes:
+      - application/json
+      description: Update Article
+      parameters:
+      - description: Article body
+        in: body
+        name: article
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateArticleModul'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Article'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.JSONErrorResponse'
+      summary: My work !!! -- Update Article
+      tags:
+      - article
+  /v2/article/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: get element by id and delete this article
+      parameters:
+      - description: Article id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Article'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.JSONErrorResponse'
+      summary: My work!!! -- Delete Article
+      tags:
+      - article
+    get:
+      consumes:
+      - application/json
+      description: get an article by id
+      parameters:
+      - description: Article id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.PackedArticleModel'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.JSONErrorResponse'
+      summary: GetArticleByID
+      tags:
+      - article
+  /v2/author:
+    post:
+      consumes:
+      - application/json
+      description: Creat a new author
+      parameters:
+      - description: Author body
+        in: body
+        name: author
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateAuthorModul'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Author'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.JSONErrorResponse'
+      summary: Creat Author
+      tags:
+      - author
+  /v2/author/:
+    get:
+      consumes:
+      - application/json
+      description: GetAuthorList
+      parameters:
+      - description: "0"
+        in: query
+        name: offset
+        type: integer
+      - description: "100"
+        in: query
+        name: limit
+        type: integer
+      - description: search exapmle
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Author'
+                  type: array
+              type: object
+      summary: List authors
+      tags:
+      - author
+    put:
+      consumes:
+      - application/json
+      description: Update Author
+      parameters:
+      - description: Author body
+        in: body
+        name: author
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateAuthorModul'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Author'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.JSONErrorResponse'
+      summary: My work !!! -- Update Author
+      tags:
+      - author
+  /v2/author/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: get element by id and delete this author
+      parameters:
+      - description: Author id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Author'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.JSONErrorResponse'
+      summary: My work!!! -- Delete Author
+      tags:
+      - author
+    get:
+      consumes:
+      - application/json
+      description: get an author by id
+      parameters:
+      - description: Author id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.PackedAuthorModel'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.JSONErrorResponse'
+      summary: GetAuthorByID
+      tags:
+      - author
+swagger: "2.0"
