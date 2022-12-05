@@ -28,7 +28,7 @@ type AuthorServiceClient interface {
 	UpdateAuthor(ctx context.Context, in *UpdateAuthorRequest, opts ...grpc.CallOption) (*Author, error)
 	DeleteAuthor(ctx context.Context, in *DeleteAuthorRequest, opts ...grpc.CallOption) (*Author, error)
 	GetAuthorList(ctx context.Context, in *GetAuthorListRequest, opts ...grpc.CallOption) (*GetAuthorListResponse, error)
-	GetAuthorById(ctx context.Context, in *GetAuthorByIDRequest, opts ...grpc.CallOption) (*Author, error)
+	GetAuthorById(ctx context.Context, in *GetAuthorByIDRequest, opts ...grpc.CallOption) (*GetAuthorByIDResponse, error)
 }
 
 type authorServiceClient struct {
@@ -84,8 +84,8 @@ func (c *authorServiceClient) GetAuthorList(ctx context.Context, in *GetAuthorLi
 	return out, nil
 }
 
-func (c *authorServiceClient) GetAuthorById(ctx context.Context, in *GetAuthorByIDRequest, opts ...grpc.CallOption) (*Author, error) {
-	out := new(Author)
+func (c *authorServiceClient) GetAuthorById(ctx context.Context, in *GetAuthorByIDRequest, opts ...grpc.CallOption) (*GetAuthorByIDResponse, error) {
+	out := new(GetAuthorByIDResponse)
 	err := c.cc.Invoke(ctx, "/AuthorService/GetAuthorById", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -103,7 +103,7 @@ type AuthorServiceServer interface {
 	UpdateAuthor(context.Context, *UpdateAuthorRequest) (*Author, error)
 	DeleteAuthor(context.Context, *DeleteAuthorRequest) (*Author, error)
 	GetAuthorList(context.Context, *GetAuthorListRequest) (*GetAuthorListResponse, error)
-	GetAuthorById(context.Context, *GetAuthorByIDRequest) (*Author, error)
+	GetAuthorById(context.Context, *GetAuthorByIDRequest) (*GetAuthorByIDResponse, error)
 	mustEmbedUnimplementedAuthorServiceServer()
 }
 
@@ -126,7 +126,7 @@ func (UnimplementedAuthorServiceServer) DeleteAuthor(context.Context, *DeleteAut
 func (UnimplementedAuthorServiceServer) GetAuthorList(context.Context, *GetAuthorListRequest) (*GetAuthorListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAuthorList not implemented")
 }
-func (UnimplementedAuthorServiceServer) GetAuthorById(context.Context, *GetAuthorByIDRequest) (*Author, error) {
+func (UnimplementedAuthorServiceServer) GetAuthorById(context.Context, *GetAuthorByIDRequest) (*GetAuthorByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAuthorById not implemented")
 }
 func (UnimplementedAuthorServiceServer) mustEmbedUnimplementedAuthorServiceServer() {}
