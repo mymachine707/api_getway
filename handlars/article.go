@@ -10,15 +10,17 @@ import (
 )
 
 // CreatArticle godoc
-// @Summary     Creat Article
-// @Description Creat a new article
-// @Tags        article
-// @Accept      json
-// @Produce     json
-// @Param       article body     models.CreateArticleModul true "Article body"
-// @Success     201     {object} models.JSONResult{data=models.Article}
-// @Failure     400     {object} models.JSONErrorResponse
-// @Router      /v2/article [post]
+//
+//	@Summary		Creat Article
+//	@Description	Creat a new article
+//	@Tags			article
+//	@Accept			json
+//	@Produce		json
+//	@Param			article			body		models.CreateArticleModul	true	"Article body"
+//	@param			Authorization	header		string						false	"Authorization"
+//	@Success		201				{object}	models.JSONResult{data=models.Article}
+//	@Failure		400				{object}	models.JSONErrorResponse
+//	@Router			/v2/article [post]
 func (h *handler) CreatArticle(c *gin.Context) {
 
 	var body models.CreateArticleModul
@@ -63,15 +65,16 @@ func (h *handler) CreatArticle(c *gin.Context) {
 }
 
 // GetArticleByID godoc
-// @Summary     GetArticleByID
-// @Description get an article by id
-// @Tags        article
-// @Accept      json
-// @Produce     json
-// @Param       id  path     string true "Article id"
-// @Success     201 {object} models.JSONResult{data=models.PackedArticleModel}
-// @Failure     400 {object} models.JSONErrorResponse
-// @Router      /v2/article/{id} [get]
+//
+//	@Summary		GetArticleByID
+//	@Description	get an article by id
+//	@Tags			article
+//	@Accept			json
+//	@Produce		json
+//	@Param			id	path		string	true	"Article id"
+//	@Success		201	{object}	models.JSONResult{data=models.PackedArticleModel}
+//	@Failure		400	{object}	models.JSONErrorResponse
+//	@Router			/v2/article/{id} [get]
 func (h *handler) GetArticleByID(c *gin.Context) {
 	idStr := c.Param("id")
 
@@ -93,16 +96,17 @@ func (h *handler) GetArticleByID(c *gin.Context) {
 }
 
 // GetArticleList godoc
-// @Summary     List articles
-// @Description GetArticleList
-// @Tags        article
-// @Accept      json
-// @Produce     json
-// @Param       offset query    int    false "0"   default(A)
-// @Param       limit  query    int    false "100" default(A)
-// @Param       search query    string false "s"   default(A)
-// @Success     200    {object} models.JSONResult{data=[]models.Article}
-// @Router      /v2/article/ [get]
+//
+//	@Summary		List articles
+//	@Description	GetArticleList
+//	@Tags			article
+//	@Accept			json
+//	@Produce		json
+//	@Param			offset	query		int		false	"0"		default(A)
+//	@Param			limit	query		int		false	"100"	default(A)
+//	@Param			search	query		string	false	"s"		default(A)
+//	@Success		200		{object}	models.JSONResult{data=[]models.Article}
+//	@Router			/v2/article/ [get]
 func (h *handler) GetArticleList(c *gin.Context) {
 
 	offsetStr := c.DefaultQuery("offset", "0")
@@ -146,15 +150,16 @@ func (h *handler) GetArticleList(c *gin.Context) {
 }
 
 // ArticleUpdate godoc
-// @Summary     My work !!! -- Update Article
-// @Description Update Article
-// @Tags        article
-// @Accept      json
-// @Produce     json
-// @Param       article body     models.UpdateArticleModul true "Article body"
-// @Success     201     {object} models.JSONResult{data=[]models.Article}
-// @Failure     400     {object} models.JSONErrorResponse
-// @Router      /v2/article/ [put]
+//
+//	@Summary		My work !!! -- Update Article
+//	@Description	Update Article
+//	@Tags			article
+//	@Accept			json
+//	@Produce		json
+//	@Param			article	body		models.UpdateArticleModul	true	"Article body"
+//	@Success		201		{object}	models.JSONResult{data=[]models.Article}
+//	@Failure		400		{object}	models.JSONErrorResponse
+//	@Router			/v2/article/ [put]
 func (h *handler) ArticleUpdate(c *gin.Context) {
 	var body models.UpdateArticleModul
 	if err := c.ShouldBindJSON(&body); err != nil {
@@ -186,15 +191,16 @@ func (h *handler) ArticleUpdate(c *gin.Context) {
 }
 
 // DeleteArticle godoc
-// @Summary     My work!!! -- Delete Article
-// @Description get element by id and delete this article
-// @Tags        article
-// @Accept      json
-// @Produce     json
-// @Param       id  path     string true "Article id"
-// @Success     201 {object} models.JSONResult{data=models.Article}
-// @Failure     400 {object} models.JSONErrorResponse
-// @Router      /v2/article/{id} [delete]
+//
+//	@Summary		My work!!! -- Delete Article
+//	@Description	get element by id and delete this article
+//	@Tags			article
+//	@Accept			json
+//	@Produce		json
+//	@Param			id	path		string	true	"Article id"
+//	@Success		201	{object}	models.JSONResult{data=models.Article}
+//	@Failure		400	{object}	models.JSONErrorResponse
+//	@Router			/v2/article/{id} [delete]
 func (h *handler) DeleteArticle(c *gin.Context) {
 	idStr := c.Param("id")
 

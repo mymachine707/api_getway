@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,7 +17,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
-// @license.name Apache 2.0
+//	@license.name	Apache 2.0
 func main() {
 
 	cfg := config.Load()
@@ -37,7 +38,7 @@ func main() {
 		r.Use(gin.Logger(), gin.Recovery()) // Later they will be replaced by custom Logger and Recovery
 	}
 
-	r.GET("/ping", func(c *gin.Context) {
+	r.GET("/ping", MyCORSMiddleware(), func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "pong",
 		})
@@ -52,6 +53,7 @@ func main() {
 	// Gruppirovka qilindi
 	v1 := r.Group("v2")
 	{
+		v1.Use(MyCORSMiddleware())
 		v1.POST("/article", h.CreatArticle)
 		v1.GET("/article/:id", h.GetArticleByID)
 		v1.GET("/article", h.GetArticleList)
@@ -62,10 +64,45 @@ func main() {
 		v1.GET("/author/:id", h.GetAuthorByID)
 		v1.GET("/author", h.GetAuthorList)
 		v1.PUT("/author", h.AuthorUpdate)
-		v1.DELETE("/author/:id", h.DeleteAuthor)
+		v1.DELETE("/author/:id", AuthMiddleware(), h.DeleteAuthor)
 	}
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	r.Run(cfg.HTTPPort) // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+}
+
+func MyCORSMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		log.Println("MyCORSMiddleware...")
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Credentials", "true")
+		c.Header("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, PATCH, DELETE")
+		c.Header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Header("Access-Control-Allow-Max-Age", "3600")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+
+	}
+}
+
+// AuthMiddleware ...
+//	@param	Authorization	header	string	false	"Authorization"
+func AuthMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		token := c.GetHeader("Authorization")
+
+		if token != "MyToken" {
+			c.JSON(http.StatusUnauthorized, "Unauthorized")
+			c.Abort()
+			return
+		}
+		c.Next()
+		//
+	}
 }

@@ -180,8 +180,6 @@ definitions:
     type: object
 info:
   contact: {}
-  license:
-    name: Apache 2.0
 paths:
   /v2/article:
     post:
@@ -195,6 +193,10 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/models.CreateArticleModul'
+      - description: Authorization
+        in: header
+        name: Authorization
+        type: string
       produces:
       - application/json
       responses:

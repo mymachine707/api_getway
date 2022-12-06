@@ -10,15 +10,15 @@ import (
 )
 
 // CreatAuthor godoc
-// @Summary     Creat Author
-// @Description Creat a new author
-// @Tags        author
-// @Accept      json
-// @Produce     json
-// @Param       author body     models.CreateAuthorModul true "Author body"
-// @Success     201    {object} models.JSONResult{data=models.Author}
-// @Failure     400    {object} models.JSONErrorResponse
-// @Router      /v2/author [post]
+//	@Summary		Creat Author
+//	@Description	Creat a new author
+//	@Tags			author
+//	@Accept			json
+//	@Produce		json
+//	@Param			author	body		models.CreateAuthorModul	true	"Author body"
+//	@Success		201		{object}	models.JSONResult{data=models.Author}
+//	@Failure		400		{object}	models.JSONErrorResponse
+//	@Router			/v2/author [post]
 func (h *handler) CreatAuthor(c *gin.Context) {
 
 	var body models.CreateAuthorModul
@@ -52,15 +52,15 @@ func (h *handler) CreatAuthor(c *gin.Context) {
 }
 
 // GetAuthorByID godoc
-// @Summary     GetAuthorByID
-// @Description get an author by id
-// @Tags        author
-// @Accept      json
-// @Produce     json
-// @Param       id  path     string true "Author id"
-// @Success     201 {object} models.JSONResult{data=models.PackedAuthorModel}
-// @Failure     400 {object} models.JSONErrorResponse
-// @Router      /v2/author/{id} [get]
+//	@Summary		GetAuthorByID
+//	@Description	get an author by id
+//	@Tags			author
+//	@Accept			json
+//	@Produce		json
+//	@Param			id	path		string	true	"Author id"
+//	@Success		201	{object}	models.JSONResult{data=models.PackedAuthorModel}
+//	@Failure		400	{object}	models.JSONErrorResponse
+//	@Router			/v2/author/{id} [get]
 func (h *handler) GetAuthorByID(c *gin.Context) {
 
 	idStr := c.Param("id")
@@ -84,16 +84,16 @@ func (h *handler) GetAuthorByID(c *gin.Context) {
 }
 
 // GetAuthorList godoc
-// @Summary     List authors
-// @Description GetAuthorList
-// @Tags        author
-// @Accept      json
-// @Produce     json
-// @Param       offset query    int    false "0"
-// @Param       limit  query    int    false "100"
-// @Param       search query    string false "search exapmle"
-// @Success     200    {object} models.JSONResult{data=[]models.Author}
-// @Router      /v2/author/ [get]
+//	@Summary		List authors
+//	@Description	GetAuthorList
+//	@Tags			author
+//	@Accept			json
+//	@Produce		json
+//	@Param			offset	query		int		false	"0"
+//	@Param			limit	query		int		false	"100"
+//	@Param			search	query		string	false	"search exapmle"
+//	@Success		200		{object}	models.JSONResult{data=[]models.Author}
+//	@Router			/v2/author/ [get]
 func (h *handler) GetAuthorList(c *gin.Context) {
 
 	offsetStr := c.DefaultQuery("offset", "0")
@@ -133,15 +133,15 @@ func (h *handler) GetAuthorList(c *gin.Context) {
 }
 
 // AuthorUpdate godoc
-// @Summary     My work !!! -- Update Author
-// @Description Update Author
-// @Tags        author
-// @Accept      json
-// @Produce     json
-// @Param       author body     models.UpdateAuthorModul true "Author body"
-// @Success     201    {object} models.JSONResult{data=[]models.Author}
-// @Failure     400    {object} models.JSONErrorResponse
-// @Router      /v2/author/ [put]
+//	@Summary		My work !!! -- Update Author
+//	@Description	Update Author
+//	@Tags			author
+//	@Accept			json
+//	@Produce		json
+//	@Param			author	body		models.UpdateAuthorModul	true	"Author body"
+//	@Success		201		{object}	models.JSONResult{data=[]models.Author}
+//	@Failure		400		{object}	models.JSONErrorResponse
+//	@Router			/v2/author/ [put]
 func (h *handler) AuthorUpdate(c *gin.Context) {
 	var body models.UpdateAuthorModul
 	if err := c.ShouldBindJSON(&body); err != nil {
@@ -172,15 +172,15 @@ func (h *handler) AuthorUpdate(c *gin.Context) {
 }
 
 // DeleteAuthor godoc
-// @Summary     My work!!! -- Delete Author
-// @Description get element by id and delete this author
-// @Tags        author
-// @Accept      json
-// @Produce     json
-// @Param       id  path     string true "Author id"
-// @Success     201 {object} models.JSONResult{data=models.Author}
-// @Failure     400 {object} models.JSONErrorResponse
-// @Router      /v2/author/{id} [delete]
+//	@Summary		My work!!! -- Delete Author
+//	@Description	get element by id and delete this author
+//	@Tags			author
+//	@Accept			json
+//	@Produce		json
+//	@Param			id	path		string	true	"Author id"
+//	@Success		201	{object}	models.JSONResult{data=models.Author}
+//	@Failure		400	{object}	models.JSONErrorResponse
+//	@Router			/v2/author/{id} [delete]
 func (h *handler) DeleteAuthor(c *gin.Context) {
 	idStr := c.Param("id")
 

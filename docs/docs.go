@@ -11,9 +11,6 @@ const docTemplate = `{
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
         "contact": {},
-        "license": {
-            "name": "Apache 2.0"
-        },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
@@ -41,6 +38,12 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/models.CreateArticleModul"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header"
                     }
                 ],
                 "responses": {
