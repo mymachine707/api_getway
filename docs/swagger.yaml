@@ -235,6 +235,10 @@ paths:
         in: query
         name: search
         type: string
+      - description: Authorization
+        in: header
+        name: Authorization
+        type: string
       produces:
       - application/json
       responses:
@@ -263,6 +267,10 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/models.UpdateArticleModul'
+      - description: Authorization
+        in: header
+        name: Authorization
+        type: string
       produces:
       - application/json
       responses:
@@ -295,6 +303,10 @@ paths:
         name: id
         required: true
         type: string
+      - description: Authorization
+        in: header
+        name: Authorization
+        type: string
       produces:
       - application/json
       responses:
@@ -323,6 +335,10 @@ paths:
         in: path
         name: id
         required: true
+        type: string
+      - description: Authorization
+        in: header
+        name: Authorization
         type: string
       produces:
       - application/json
@@ -355,6 +371,10 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/models.CreateAuthorModul'
+      - description: Authorization
+        in: header
+        name: Authorization
+        type: string
       produces:
       - application/json
       responses:
@@ -392,6 +412,10 @@ paths:
         in: query
         name: search
         type: string
+      - description: Authorization
+        in: header
+        name: Authorization
+        type: string
       produces:
       - application/json
       responses:
@@ -420,6 +444,10 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/models.UpdateAuthorModul'
+      - description: Authorization
+        in: header
+        name: Authorization
+        type: string
       produces:
       - application/json
       responses:
@@ -452,6 +480,10 @@ paths:
         name: id
         required: true
         type: string
+      - description: Authorization
+        in: header
+        name: Authorization
+        type: string
       produces:
       - application/json
       responses:
@@ -480,6 +512,10 @@ paths:
         in: path
         name: id
         required: true
+        type: string
+      - description: Authorization
+        in: header
+        name: Authorization
         type: string
       produces:
       - application/json

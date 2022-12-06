@@ -17,7 +17,7 @@ import (
 //	@Accept			json
 //	@Produce		json
 //	@Param			article			body		models.CreateArticleModul	true	"Article body"
-//	@param			Authorization	header		string						false	"Authorization"
+//	@Param			Authorization	header		string						false	"Authorization"
 //	@Success		201				{object}	models.JSONResult{data=models.Article}
 //	@Failure		400				{object}	models.JSONErrorResponse
 //	@Router			/v2/article [post]
@@ -71,9 +71,10 @@ func (h *handler) CreatArticle(c *gin.Context) {
 //	@Tags			article
 //	@Accept			json
 //	@Produce		json
-//	@Param			id	path		string	true	"Article id"
-//	@Success		201	{object}	models.JSONResult{data=models.PackedArticleModel}
-//	@Failure		400	{object}	models.JSONErrorResponse
+//	@Param			id				path		string	true	"Article id"
+//	@Param			Authorization	header		string	false	"Authorization"
+//	@Success		201				{object}	models.JSONResult{data=models.PackedArticleModel}
+//	@Failure		400				{object}	models.JSONErrorResponse
 //	@Router			/v2/article/{id} [get]
 func (h *handler) GetArticleByID(c *gin.Context) {
 	idStr := c.Param("id")
@@ -102,10 +103,11 @@ func (h *handler) GetArticleByID(c *gin.Context) {
 //	@Tags			article
 //	@Accept			json
 //	@Produce		json
-//	@Param			offset	query		int		false	"0"		default(A)
-//	@Param			limit	query		int		false	"100"	default(A)
-//	@Param			search	query		string	false	"s"		default(A)
-//	@Success		200		{object}	models.JSONResult{data=[]models.Article}
+//	@Param			offset			query		int		false	"0"		default(A)
+//	@Param			limit			query		int		false	"100"	default(A)
+//	@Param			search			query		string	false	"s"		default(A)
+//	@Param			Authorization	header		string	false	"Authorization"
+//	@Success		200				{object}	models.JSONResult{data=[]models.Article}
 //	@Router			/v2/article/ [get]
 func (h *handler) GetArticleList(c *gin.Context) {
 
@@ -156,9 +158,10 @@ func (h *handler) GetArticleList(c *gin.Context) {
 //	@Tags			article
 //	@Accept			json
 //	@Produce		json
-//	@Param			article	body		models.UpdateArticleModul	true	"Article body"
-//	@Success		201		{object}	models.JSONResult{data=[]models.Article}
-//	@Failure		400		{object}	models.JSONErrorResponse
+//	@Param			article			body		models.UpdateArticleModul	true	"Article body"
+//	@Param			Authorization	header		string						false	"Authorization"
+//	@Success		201				{object}	models.JSONResult{data=[]models.Article}
+//	@Failure		400				{object}	models.JSONErrorResponse
 //	@Router			/v2/article/ [put]
 func (h *handler) ArticleUpdate(c *gin.Context) {
 	var body models.UpdateArticleModul
@@ -197,9 +200,10 @@ func (h *handler) ArticleUpdate(c *gin.Context) {
 //	@Tags			article
 //	@Accept			json
 //	@Produce		json
-//	@Param			id	path		string	true	"Article id"
-//	@Success		201	{object}	models.JSONResult{data=models.Article}
-//	@Failure		400	{object}	models.JSONErrorResponse
+//	@Param			id				path		string	true	"Article id"
+//	@Param			Authorization	header		string	false	"Authorization"
+//	@Success		201				{object}	models.JSONResult{data=models.Article}
+//	@Failure		400				{object}	models.JSONErrorResponse
 //	@Router			/v2/article/{id} [delete]
 func (h *handler) DeleteArticle(c *gin.Context) {
 	idStr := c.Param("id")

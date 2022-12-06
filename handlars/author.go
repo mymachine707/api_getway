@@ -15,9 +15,10 @@ import (
 //	@Tags			author
 //	@Accept			json
 //	@Produce		json
-//	@Param			author	body		models.CreateAuthorModul	true	"Author body"
-//	@Success		201		{object}	models.JSONResult{data=models.Author}
-//	@Failure		400		{object}	models.JSONErrorResponse
+//	@Param			author			body		models.CreateAuthorModul	true	"Author body"
+//	@Param			Authorization	header		string						false	"Authorization"
+//	@Success		201				{object}	models.JSONResult{data=models.Author}
+//	@Failure		400				{object}	models.JSONErrorResponse
 //	@Router			/v2/author [post]
 func (h *handler) CreatAuthor(c *gin.Context) {
 
@@ -57,9 +58,10 @@ func (h *handler) CreatAuthor(c *gin.Context) {
 //	@Tags			author
 //	@Accept			json
 //	@Produce		json
-//	@Param			id	path		string	true	"Author id"
-//	@Success		201	{object}	models.JSONResult{data=models.PackedAuthorModel}
-//	@Failure		400	{object}	models.JSONErrorResponse
+//	@Param			id				path		string	true	"Author id"
+//	@Param			Authorization	header		string	false	"Authorization"
+//	@Success		201				{object}	models.JSONResult{data=models.PackedAuthorModel}
+//	@Failure		400				{object}	models.JSONErrorResponse
 //	@Router			/v2/author/{id} [get]
 func (h *handler) GetAuthorByID(c *gin.Context) {
 
@@ -89,10 +91,11 @@ func (h *handler) GetAuthorByID(c *gin.Context) {
 //	@Tags			author
 //	@Accept			json
 //	@Produce		json
-//	@Param			offset	query		int		false	"0"
-//	@Param			limit	query		int		false	"100"
-//	@Param			search	query		string	false	"search exapmle"
-//	@Success		200		{object}	models.JSONResult{data=[]models.Author}
+//	@Param			offset			query		int		false	"0"
+//	@Param			limit			query		int		false	"100"
+//	@Param			search			query		string	false	"search exapmle"
+//	@Param			Authorization	header		string	false	"Authorization"
+//	@Success		200				{object}	models.JSONResult{data=[]models.Author}
 //	@Router			/v2/author/ [get]
 func (h *handler) GetAuthorList(c *gin.Context) {
 
@@ -138,9 +141,10 @@ func (h *handler) GetAuthorList(c *gin.Context) {
 //	@Tags			author
 //	@Accept			json
 //	@Produce		json
-//	@Param			author	body		models.UpdateAuthorModul	true	"Author body"
-//	@Success		201		{object}	models.JSONResult{data=[]models.Author}
-//	@Failure		400		{object}	models.JSONErrorResponse
+//	@Param			author			body		models.UpdateAuthorModul	true	"Author body"
+//	@Param			Authorization	header		string						false	"Authorization"
+//	@Success		201				{object}	models.JSONResult{data=[]models.Author}
+//	@Failure		400				{object}	models.JSONErrorResponse
 //	@Router			/v2/author/ [put]
 func (h *handler) AuthorUpdate(c *gin.Context) {
 	var body models.UpdateAuthorModul
@@ -177,9 +181,10 @@ func (h *handler) AuthorUpdate(c *gin.Context) {
 //	@Tags			author
 //	@Accept			json
 //	@Produce		json
-//	@Param			id	path		string	true	"Author id"
-//	@Success		201	{object}	models.JSONResult{data=models.Author}
-//	@Failure		400	{object}	models.JSONErrorResponse
+//	@Param			id				path		string	true	"Author id"
+//	@Param			Authorization	header		string	false	"Authorization"
+//	@Success		201				{object}	models.JSONResult{data=models.Author}
+//	@Failure		400				{object}	models.JSONErrorResponse
 //	@Router			/v2/author/{id} [delete]
 func (h *handler) DeleteAuthor(c *gin.Context) {
 	idStr := c.Param("id")
