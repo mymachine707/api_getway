@@ -10,6 +10,9 @@ import (
 type GrpcClients struct {
 	Author  blogpost.AuthorServiceClient
 	Article blogpost.ArticleServiceClient
+	Users   blogpost.UserServiceClient
+
+	conns []*grpc.ClientConn
 }
 
 func NewGrpcClients(cfg config.Config) (*GrpcClients, error) {
@@ -30,10 +33,26 @@ func NewGrpcClients(cfg config.Config) (*GrpcClients, error) {
 	// defer conn.Close() // ulanishdan keyin yoppormasligi uchun hozircha defer keremas
 	article := blogpost.NewArticleServiceClient(connArticle)
 
+	connUser, err := grpc.Dial(cfg.UsersServiceGrpcHost+cfg.UsersServiceGrpcPort, grpc.WithInsecure())
+
+	if err != nil {
+		return nil, err
+	}
+	// defer conn.Close() // ulanishdan keyin yoppormasligi uchun hozircha defer keremas
+	user := blogpost.NewUserServiceClient(connUser)
+
+	conns := make([]*grpc.ClientConn, 0)
 	return &GrpcClients{
 		Author:  author,
 		Article: article,
+		Users:   user,
+		conns:   append(conns, connAuthor, connArticle, connUser),
 	}, nil
 }
 
-
+// Close for disconnection connection another serevice
+func (c *GrpcClients) Close() {
+	for _, v := range c.conns {
+		v.Close()
+	}
+}

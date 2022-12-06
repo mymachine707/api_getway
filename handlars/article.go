@@ -151,6 +151,70 @@ func (h *handler) GetArticleList(c *gin.Context) {
 	})
 }
 
+// SearchArticleByMyUsername godoc
+//
+//	@Summary		List articles
+//	@Description	SearchArticleByMyUsername
+//	@Tags			article
+//	@Accept			json
+//	@Produce		json
+//	@Param			offset			query		int		false	"0"		default()
+//	@Param			limit			query		int		false	"100"	default()
+//	@Param			search			query		string	false	"s"		default()
+//	@Param			Authorization	header		string	false	"Authorization"
+//	@Success		200				{object}	models.JSONResult{data=[]models.Article}
+//	@Router			/v2/my-articles/ [get]
+func (h *handler) SearchArticleByMyUsername(c *gin.Context) {
+
+	offsetStr := c.DefaultQuery("offset", "0")
+	limitStr := c.DefaultQuery("limit", "100")
+
+	usernameRaw, ok := c.Get("auth-username")
+	if !ok {
+		c.JSON(http.StatusBadRequest, "Something is wrong")
+	}
+
+	username, ok := usernameRaw.(string)
+	if !ok {
+		c.JSON(http.StatusBadRequest, "Something is wrong")
+	}
+
+	searchStr := username
+	offset, err := strconv.Atoi(offsetStr)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, models.JSONErrorResponse{
+			Error: err.Error(),
+		})
+		return
+	}
+
+	limit, err := strconv.Atoi(limitStr)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, models.JSONErrorResponse{
+			Error: err.Error(),
+		})
+		return
+	}
+
+	articleList, err := h.grpcClient.Article.GetArticleList(c.Request.Context(), &blogpost.GetArticleListRequest{
+		Offset: int32(offset),
+		Limit:  int32(limit),
+		Search: searchStr,
+	})
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, models.JSONErrorResponse{
+			Error: err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, models.JSONResult{
+		Data:    articleList,
+		Message: "GetList OK",
+	})
+}
+
 // ArticleUpdate godoc
 //
 //	@Summary		My work !!! -- Update Article

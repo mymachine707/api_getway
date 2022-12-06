@@ -48,23 +48,28 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	//
+
+	defer grpcClients.Close()
+
 	h := handlars.NewHandler(cfg, grpcClients)
 	// Gruppirovka qilindi
 	v1 := r.Group("v2")
 	{
 		v1.Use(MyCORSMiddleware())
-		v1.POST("/article", h.CreatArticle)
-		v1.GET("/article/:id", h.GetArticleByID)
-		v1.GET("/article", h.GetArticleList)
-		v1.PUT("/article", h.ArticleUpdate)
-		v1.DELETE("/article/:id", h.DeleteArticle)
+		v1.POST("/login", h.Login)
 
-		v1.POST("/author", h.CreatAuthor)
-		v1.GET("/author/:id", h.GetAuthorByID)
-		v1.GET("/author", h.GetAuthorList)
-		v1.PUT("/author", h.AuthorUpdate)
-		v1.DELETE("/author/:id", AuthMiddleware(), h.DeleteAuthor)
+		v1.POST("/article", h.AuthMiddleware("*"), h.CreatArticle)
+		v1.GET("/article/:id", h.AuthMiddleware("*"), h.GetArticleByID)
+		v1.GET("/article", h.AuthMiddleware("*"), h.GetArticleList)
+		v1.PUT("/article", h.AuthMiddleware("*"), h.ArticleUpdate)
+		v1.DELETE("/article/:id", h.AuthMiddleware("ADMIN"), h.DeleteArticle)
+		v1.GET("/my-article/:id", h.AuthMiddleware("*"), h.SearchArticleByMyUsername)
+
+		v1.POST("/author", h.AuthMiddleware("*"), h.CreatAuthor)
+		v1.GET("/author/:id", h.AuthMiddleware("*"), h.GetAuthorByID)
+		v1.GET("/author", h.AuthMiddleware("*"), h.GetAuthorList)
+		v1.PUT("/author", h.AuthMiddleware("*"), h.AuthorUpdate)
+		v1.DELETE("/author/:id", h.AuthMiddleware("ADMIN"), h.DeleteAuthor)
 	}
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
@@ -88,22 +93,5 @@ func MyCORSMiddleware() gin.HandlerFunc {
 
 		c.Next()
 
-	}
-}
-
-// AuthMiddleware ...
-//
-//	@param	Authorization	header	string	false	"Authorization"
-func AuthMiddleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		token := c.GetHeader("Authorization")
-
-		if token != "MyToken" {
-			c.JSON(http.StatusUnauthorized, "Unauthorized")
-			c.Abort()
-			return
-		}
-		c.Next()
-		//
 	}
 }
