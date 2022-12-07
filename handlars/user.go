@@ -53,9 +53,9 @@ func (h *handler) AuthMiddleware(userType string) gin.HandlerFunc {
 //	@Tags			users
 //	@Accept			json
 //	@Produce		json
-//	@Param			users			body		models.LoginModul	true	"Login body"
-//	@Success		201				{object}	models.JSONResult{data=models.TokenResponse}
-//	@Failure		400				{object}	models.JSONErrorResponse
+//	@Param			users	body		models.LoginModul	true	"Login body"
+//	@Success		201		{object}	models.JSONResult{data=models.TokenResponse}
+//	@Failure		400		{object}	models.JSONErrorResponse
 //	@Router			/v2/login [post]
 func (h *handler) Login(c *gin.Context) {
 

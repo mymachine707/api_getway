@@ -17,7 +17,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
-// @license.name	Apache 2.0
+//	@license.name	Apache 2.0
 func main() {
 
 	cfg := config.Load()

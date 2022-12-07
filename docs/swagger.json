@@ -90,8 +90,8 @@
                     },
                     {
                         "type": "string",
-                        "default": "A",
-                        "description": "s",
+                        "default": "",
+                        "description": "search",
                         "name": "search",
                         "in": "query"
                     },
@@ -137,7 +137,7 @@
                 "tags": [
                     "article"
                 ],
-                "summary": "My work !!! -- Update Article",
+                "summary": "Update Article",
                 "parameters": [
                     {
                         "description": "Article body",
@@ -156,8 +156,8 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "allOf": [
                                 {
@@ -252,7 +252,7 @@
                 "tags": [
                     "article"
                 ],
-                "summary": "My work!!! -- Delete Article",
+                "summary": "Delete Article",
                 "parameters": [
                     {
                         "type": "string",

@@ -103,9 +103,9 @@ func (h *handler) GetArticleByID(c *gin.Context) {
 //	@Tags			article
 //	@Accept			json
 //	@Produce		json
-//	@Param			offset			query		int		false	"0"		default(A)
-//	@Param			limit			query		int		false	"100"	default(A)
-//	@Param			search			query		string	false	"s"		default(A)
+//	@Param			offset			query		int		false	"0"			default()
+//	@Param			limit			query		int		false	"100"		default()
+//	@Param			search			query		string	false	"search"	default()
 //	@Param			Authorization	header		string	false	"Authorization"
 //	@Success		200				{object}	models.JSONResult{data=[]models.Article}
 //	@Router			/v2/article/ [get]
@@ -217,14 +217,14 @@ func (h *handler) SearchArticleByMyUsername(c *gin.Context) {
 
 // ArticleUpdate godoc
 //
-//	@Summary		My work !!! -- Update Article
+//	@Summary		Update Article
 //	@Description	Update Article
 //	@Tags			article
 //	@Accept			json
 //	@Produce		json
 //	@Param			article			body		models.UpdateArticleModul	true	"Article body"
 //	@Param			Authorization	header		string						false	"Authorization"
-//	@Success		201				{object}	models.JSONResult{data=[]models.Article}
+//	@Success		200				{object}	models.JSONResult{data=[]models.Article}
 //	@Failure		400				{object}	models.JSONErrorResponse
 //	@Router			/v2/article/ [put]
 func (h *handler) ArticleUpdate(c *gin.Context) {
@@ -239,6 +239,7 @@ func (h *handler) ArticleUpdate(c *gin.Context) {
 			Title: body.Title,
 			Body:  body.Body,
 		},
+		Id: body.ID,
 	})
 
 	if err != nil {
@@ -259,7 +260,7 @@ func (h *handler) ArticleUpdate(c *gin.Context) {
 
 // DeleteArticle godoc
 //
-//	@Summary		My work!!! -- Delete Article
+//	@Summary		Delete Article
 //	@Description	get element by id and delete this article
 //	@Tags			article
 //	@Accept			json

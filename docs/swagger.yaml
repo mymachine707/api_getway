@@ -245,8 +245,8 @@ paths:
         in: query
         name: limit
         type: integer
-      - default: A
-        description: s
+      - default: ""
+        description: search
         in: query
         name: search
         type: string
@@ -289,8 +289,8 @@ paths:
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             allOf:
             - $ref: '#/definitions/models.JSONResult'
@@ -304,7 +304,7 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/models.JSONErrorResponse'
-      summary: My work !!! -- Update Article
+      summary: Update Article
       tags:
       - article
   /v2/article/{id}:
@@ -338,7 +338,7 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/models.JSONErrorResponse'
-      summary: My work!!! -- Delete Article
+      summary: Delete Article
       tags:
       - article
     get:

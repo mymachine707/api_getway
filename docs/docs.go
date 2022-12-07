@@ -102,8 +102,8 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "default": "A",
-                        "description": "s",
+                        "default": "",
+                        "description": "search",
                         "name": "search",
                         "in": "query"
                     },
@@ -149,7 +149,7 @@ const docTemplate = `{
                 "tags": [
                     "article"
                 ],
-                "summary": "My work !!! -- Update Article",
+                "summary": "Update Article",
                 "parameters": [
                     {
                         "description": "Article body",
@@ -168,8 +168,8 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "allOf": [
                                 {
@@ -264,7 +264,7 @@ const docTemplate = `{
                 "tags": [
                     "article"
                 ],
-                "summary": "My work!!! -- Delete Article",
+                "summary": "Delete Article",
                 "parameters": [
                     {
                         "type": "string",
