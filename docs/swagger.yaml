@@ -81,6 +81,19 @@ definitions:
     - firstname
     - lastname
     type: object
+  models.CreateUserModul:
+    properties:
+      password:
+        type: string
+      user_type:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - user_type
+    - username
+    type: object
   models.JSONErrorResponse:
     properties:
       error:
@@ -193,9 +206,59 @@ definitions:
     - id
     - lastname
     type: object
+  models.User:
+    properties:
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      password:
+        type: string
+      updated_at:
+        type: string
+      user_type:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - user_type
+    - username
+    type: object
 info:
   contact: {}
 paths:
+  /v2/User:
+    post:
+      consumes:
+      - application/json
+      description: Creat a new User
+      parameters:
+      - description: User body
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateUserModul'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.User'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.JSONErrorResponse'
+      summary: Creat User
+      tags:
+      - users
   /v2/article:
     post:
       consumes:

@@ -45,19 +45,6 @@ func (h *handler) CreatArticle(c *gin.Context) {
 		return
 	}
 
-	// get article by id service ichida tekshirib ketilgan
-
-	// article, err := h.grpcClient.Article.GetArticleById(c.Request.Context(), &blogpost.GetArticleByIDRequest{
-	// 	Id: obj.Id,
-	// })
-
-	// if err != nil {
-	// 	c.JSON(http.StatusInternalServerError, models.JSONErrorResponse{
-	// 		Error: err.Error(),
-	// 	})
-	// 	return
-	// }
-
 	c.JSON(http.StatusCreated, models.JSONResult{
 		Message: "CreatArticle",
 		Data:    article,

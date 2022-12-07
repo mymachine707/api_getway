@@ -83,3 +83,42 @@ func (h *handler) Login(c *gin.Context) {
 		Data:    tokenResponse,
 	})
 }
+
+// CreateUser godoc
+//
+//	@Summary		Creat User
+//	@Description	Creat a new User
+//	@Tags			users
+//	@Accept			json
+//	@Produce		json
+//	@Param			User	body		models.CreateUserModul	true	"User body"
+//	@Success		201		{object}	models.JSONResult{data=models.User}
+//	@Failure		400		{object}	models.JSONErrorResponse
+//	@Router			/v2/user [post]
+func (h *handler) CreateUser(c *gin.Context) {
+
+	var body models.CreateUserModul
+
+	if err := c.ShouldBindJSON(&body); err != nil {
+		c.JSON(http.StatusBadRequest, models.JSONErrorResponse{Error: err.Error()})
+		return
+	}
+
+	user, err := h.grpcClient.Users.CreateUser(c.Request.Context(), &blogpost.CreateUserRequest{
+		Username: body.Username,
+		Password: body.Password,
+		UserType: body.User_type,
+	})
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, models.JSONErrorResponse{
+			Error: err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusCreated, models.JSONResult{
+		Message: "CreateUser",
+		Data:    user,
+	})
+}
